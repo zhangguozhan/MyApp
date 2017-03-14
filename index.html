@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title></title>
+		<script type="text/javascript">
+			var main = null;
+			var showMenu = false;
+			var menu = null;
+			var add = null;
+			var detail = null;
+
+			// 所有方法都放到这里
+			mui.plusReady(function() {
+				// 初始化数据库
+				initDb();
+
+				// 侧滑菜单
+				main = qiao.h.indexPage();
+				var menuoptions = qiao.h.page('menu', {
+					styles: {
+						left: 0,
+						width: '70%',
+						zindex: -1
+					}
+				});
+				menu = mui.preload(menuoptions);
+				qiao.on('.mui-icon-bars', 'tap', opMenu);
+				main.addEventListener('maskClick', opMenu);
+				mui.menu = opMenu;
+
+				// 退出
+				mui.back = function() {
+					if($('.adda').is(':hidden')) {
+						hideAdd();
+					} else if(showMenu) {
+						closeMenu();
+					} else {
+						qiao.h.exit();
+					}
+				};
+			});
+
+			document.addEventListener('plusready', function() {
+				//console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。"
+
+			});
+
+			function openUrl() {
+				var urlStr = document.getElementById("urlStr").value;
+				window.open(urlStr, 'aa', 'bb', false);
+			}
+
+			window.addEventListener('swiperight', function() {
+				alert('hello world !');
+			});
+		</script>
+	</head>
+
+	<body>
+		<h1>章国站的APP</h1><br />
+		<input type="text" name="urlStr" id="urlStr" value="http://127.0.0.1:8080/agent/" style="width: 250px;" />
+		<input type="button" name="open" id="open" value="打开地址" onclick="openUrl()" /><br /><br />
+		<a href="http://www.baidu.com">打开百度</a><br />
+		<a href="http://www.taobao.com">打开淘宝</a><br />
+		<a href="http://192.168.173.238:8080">打开TOMCAT</a><br />
+	</body>
+
+</html>
